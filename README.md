@@ -11,10 +11,14 @@
 - Filter bookmarks by tag
 - Users are restricted to manage only their own bookmarks
 
-User Story: 
+User Stories relating to each of the above: 
 As a user, 
 so that I can easily see my bookmarks, 
 I would like my bookmark manager to display a list of bookmarks.
+
+As a user, 
+so that I can store the bookmark for later retrieval 
+I want to add a bookmark to Bookmark Manager.
 
 ![bookmark_manager_diagram](/images/Domain_Model_Diagram.png)
 

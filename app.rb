@@ -13,7 +13,7 @@ class BookmarkManager < Sinatra::Base
 
   get '/bookmarks' do
     @bookmarks = Bookmark.all
-    erb :'bookmarks/index'
+    erb :'bookmarks/index' 
   end
 
   get '/bookmarks/new' do 
@@ -21,8 +21,7 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/bookmarks' do 
-    Bookmark.create(url: params[:url]) 
-    
+    Bookmark.create(url: params[:url]) #needs to be a keyword arg so that we can pass it to the connection.exec() query string in the Model
     redirect '/bookmarks'
   end
 
