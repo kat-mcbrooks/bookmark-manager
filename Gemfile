@@ -7,6 +7,7 @@ gem 'sinatra-contrib'
 gem 'rspec'
 gem 'capybara'
 gem 'webrick'
+gem 'pg'
 
 
 ruby '3.0.0'

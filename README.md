@@ -29,9 +29,14 @@ a Controller
 a Bookmark class
 A bookmark view
 
-Setting up the database
+#### Setting up the database
 
 1. Connect to psql
 2. Create the database using the psql command CREATE DATABASE bookmark_manager;
 3. Connect to the database using the pqsl command \c bookmark_manager;
 4. Run the query we have saved in the file 01_create_bookmarks_table.sql
+
+#### Setting up the test database
+1. Create the database to be used when running rspec using the psql command CREATE DATABASE bookmark_manager_test;
+2. Connect to the database using the pqsl command \c bookmark_manager_test;
+3. Run the query we have saved in the file 01_create_bookmarks_table.sql
