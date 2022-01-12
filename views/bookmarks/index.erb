@@ -1,9 +1,16 @@
 <ul>
   <% @bookmarks.each do |bookmark| %>
-    <li>
+    <li class='bookmark' >
     <a href="<%= bookmark.url %>">
       <%= bookmark.title %>
       </a>
-      </li>
+      <form action= '/bookmarks/<%=bookmark.id%>' method='POST' >
+      <input type='hidden' name='_method' value='DELETE' />
+      <input type='submit' value='Delete' />
+      </form>
+    </li>
   <% end %>
 </ul>
+
+
+<! line 8 because sinatra/HTML only really support the GET and POST methods so in order to be able to use the DELETE, we have to kind of 'trick' the form to go the right place> 
