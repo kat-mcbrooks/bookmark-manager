@@ -29,7 +29,7 @@ class Bookmark
     else
       connection = PG.connect(dbname: 'bookmark_manager') # calling connect on the PG object, passing in db name, returns an object we can send a query to(line below)
     end
-    result = connection.exec("INSERT INTO bookmarks (title, url) VALUES('#{title}','#{url}') RETURNING id, url, title;") #we need the SQL query to return the Bookmark we're creating, so we can check that the Bookmark has been created with the given values. This also removes any dependency on the .all method.
+    result = connection.exec_params("INSERT INTO bookmarks (url, title) VALUES($1, $2) RETURNING id, url, title;", [url, title]) #we need the SQL query to return the Bookmark we're creating, so we can check that the Bookmark has been created with the given values. This also removes any dependency on the .all method.
     Bookmark.new(id: result[0]['id'], url: result[0]['url'], title: result[0]['title']) #result must contain multiple arrays/hashes otherwise why are we doing [0]?
   end
 end
