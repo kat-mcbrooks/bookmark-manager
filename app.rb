@@ -12,7 +12,7 @@ class BookmarkManager < Sinatra::Base
   end
 
   get '/bookmarks' do
-    @bookmarks = Bookmark.all
+    @bookmarks = Bookmark.all #logic of retrieving bookmarks from db is done by the Model
     erb :'bookmarks/index' 
   end
 
@@ -21,7 +21,7 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/bookmarks' do 
-    Bookmark.create(url: params[:url]) #needs to be a keyword arg so that we can pass it to the connection.exec() query string in the Model
+    Bookmark.create(url: params[:url], title: params[:title]) #needs to be a keyword arg so that we can pass it to the connection.exec() query string in the Model
     redirect '/bookmarks'
   end
 

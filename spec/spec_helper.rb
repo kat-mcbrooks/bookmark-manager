@@ -1,5 +1,5 @@
 require_relative './setup_test_database'
-
+require 'database_helpers'
 # Set the environment to "test". We put the ENVs here because when we run rspec from command line, the spec_helper.rb file is run before anything else
 ENV['RACK_ENV'] = 'test'
 ENV['ENVIRONMENT'] = 'test'
