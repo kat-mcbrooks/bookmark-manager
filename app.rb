@@ -14,8 +14,7 @@ class BookmarkManager < Sinatra::Base
   end
 
   get '/bookmarks' do
-    
-    p @bookmarks = Bookmark.all #logic of retrieving bookmarks from db is done by the Model. 
+    @bookmarks = Bookmark.all #logic of retrieving bookmarks from db is done by the Model. 
     erb :'bookmarks/index' 
   end
 
@@ -29,8 +28,18 @@ class BookmarkManager < Sinatra::Base
   end
 
   delete '/bookmarks/:id' do #not sure how this :id works!? something to do with override?
-    p params #{"_method"=>"DELETE", "id"=>"279"}
+    params #{"_method"=>"DELETE", "id"=>"279"}
     Bookmark.delete(id: params[:id])
+    redirect '/bookmarks'
+  end
+
+  get '/bookmarks/:id/edit' do
+    @bookmark = Bookmark.find(id: params[:id])
+    erb :'bookmarks/edit'
+  end
+
+  patch '/bookmarks/:id' do
+    Bookmark.update(id: params[:id], title: params[:title], url: params[:url])
     redirect '/bookmarks'
   end
 

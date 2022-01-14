@@ -5,12 +5,19 @@
       <%= bookmark.title %>
       </a>
       <form action= '/bookmarks/<%=bookmark.id%>' method='POST' >
-      <input type='hidden' name='_method' value='DELETE' />
+      <input type='hidden' name='_method' value='DELETE' /> <! setting name to _method makes the form 'fake' a delete request>
       <input type='submit' value='Delete' />
       </form>
+    
+      <form action='/bookmarks/<%= bookmark.id %>/edit' method='GET'>
+        <input type='submit' value='Edit' />
+      </form>
+
     </li>
   <% end %>
 </ul>
 
 
 <! line 8 because sinatra/HTML only really support the GET and POST methods so in order to be able to use the DELETE, we have to kind of 'trick' the form to go the right place> 
+<! If you are calling a route with a different method(e.g. DELETE,PUT) from an HTML form, add a hidden field called _method with the method to use (e.g. <input type="hidden" name="_method" value="PUT"/>). If you create your forms with Symfony Forms this is done automatically for you. >
+<! hidden input type allows us to include data that cannot be seen or modified by users when a form is submitted e.g. the ID or a unique security token. params sent back in this form are "_method"=>"DELETE", "id"=>"279". A hidden field often stores what database record needs to be updated when the form is submitted. > 

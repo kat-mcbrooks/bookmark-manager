@@ -18,9 +18,11 @@ class Bookmark
     end
 
     result = connection.exec('SELECT * FROM bookmarks;') # calling exec on the connection object, passing in a query string, to retrieve everything in the table
+  
     result.map do |bookmark| 
       Bookmark.new(id: bookmark['id'], url: bookmark['url'], title: bookmark['title']) #wrapping each db entry in a Bookmark instance, with instance variables id, url, title
     end
+    
   end
 
   def self.create(url:, title:) #class method because we don't want to create a new instance of Bookmark everytime we add a bookmark. We want all bookmarks added within the db bookmark_manager to belong to one instance of Bookmark. keyword arg so that url can be passed in the controller 
@@ -40,6 +42,31 @@ class Bookmark
       connection = PG.connect(dbname: 'bookmark_manager') 
     end
     result = connection.exec_params("DELETE FROM bookmarks WHERE id=$1;", [id]) 
+  end
+
+  def self.update(id:, url:, title:)
+    if ENV['ENVIRONMENT'] == 'test'
+      connection = PG.connect(dbname: 'bookmark_manager_test') 
+    else
+      connection = PG.connect(dbname: 'bookmark_manager') 
+    end
+  
+    result = connection.exec_params(
+      "UPDATE bookmarks SET url = $1, title = $2 WHERE id = $3 RETURNING id, url, title;",
+      [url, title, id]
+  )
+  Bookmark.new(id: result[0]['id'], title: result[0]['title'], url: result[0]['url'])
+  end
+
+  def self.find(id: ) 
+    if ENV['ENVIRONMENT'] == 'test'
+      connection = PG.connect(dbname: 'bookmark_manager_test') 
+    else
+      connection = PG.connect(dbname: 'bookmark_manager') 
+    end
+    result = connection.exec_params("SELECT * FROM bookmarks WHERE id = $1;", [id])
+    Bookmark.new(id: result[0]['id'], title: result[0]['title'], url: result[0]['url']) #even though we are 'finding' the bookmark in the db, we need to create a new instance of Bookmark in ruby (wrapping in a useful Ruby object). We need to return this data as a useful object so that on the webpage, the user can see it.
+
   end
 
 end

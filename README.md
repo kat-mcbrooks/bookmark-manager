@@ -20,6 +20,15 @@ As a user,
 so that I can store the bookmark for later retrieval 
 I want to add a bookmark to Bookmark Manager.
 
+As a user,
+so that I can delete a bookmark
+I want to delete a bookmark.
+
+As a user,
+so that I can update a bookmark,
+I want to be able to see the bookmark I want update and edit it.
+
+
 ![bookmark_manager_diagram](/images/Domain_Model_Diagram.png)
 
 - When the user visits the '/bookmarks' path, their browser sends a request to a controller we built.
@@ -44,3 +53,8 @@ A bookmark view
 1. Create the database to be used when running rspec using the psql command CREATE DATABASE bookmark_manager_test;
 2. Connect to the database using the pqsl command \c bookmark_manager_test;
 3. Run the query we have saved in the file 01_create_bookmarks_table.sql
+
+
+KB notes: 
+this is what prints to terminal from Bookmark's self.all method, when we call result = connection.exec('SELECT * FROM bookmarks;')
+#<PG::Result:0x00000001294060a8 status=PGRES_TUPLES_OK ntuples=3 nfields=3 cmd_tuples=3>
